@@ -8,7 +8,9 @@ import jakarta.persistence.MappedSuperclass
 import jakarta.persistence.PostLoad
 import jakarta.persistence.PostPersist
 import org.hibernate.annotations.GenericGenerator
+import org.hibernate.annotations.JdbcTypeCode
 import org.hibernate.proxy.HibernateProxy
+import org.hibernate.type.SqlTypes
 import org.springframework.data.annotation.CreatedDate
 import org.springframework.data.domain.Persistable
 import org.springframework.data.jpa.domain.support.AuditingEntityListener
@@ -22,6 +24,7 @@ import java.util.*
 abstract class BasicEntity : Persistable<UUID> {
     @Id
     @Column(name = "id")
+    @JdbcTypeCode(value = SqlTypes.VARCHAR)
     private val id: UUID = UlidCreator.getMonotonicUlid().toUuid()
 
     @CreatedDate
