@@ -6,13 +6,16 @@ import jakarta.persistence.Id
 import jakarta.persistence.MappedSuperclass
 import jakarta.persistence.PostLoad
 import jakarta.persistence.PostPersist
+import org.hibernate.annotations.JdbcTypeCode
+import org.hibernate.type.SqlTypes
 import org.springframework.data.domain.Persistable
 import java.util.*
 
 @MappedSuperclass
 abstract class BasicEntityV1 : Persistable<UUID> {
     @Id
-    @Column(name = "id", columnDefinition = "BINARY(16)")
+    @Column(name = "id")
+    @JdbcTypeCode(value = SqlTypes.VARCHAR)
     private val id: UUID = UlidCreator.getMonotonicUlid().toUuid()
 
     @Transient
