@@ -7,7 +7,7 @@ import jakarta.persistence.Id
 import jakarta.persistence.MappedSuperclass
 import jakarta.persistence.PostLoad
 import jakarta.persistence.PostPersist
-import org.hibernate.annotations.Type
+import org.hibernate.annotations.GenericGenerator
 import org.hibernate.proxy.HibernateProxy
 import org.springframework.data.annotation.CreatedDate
 import org.springframework.data.domain.Persistable
@@ -21,7 +21,7 @@ import java.util.*
 @EntityListeners(AuditingEntityListener::class)
 abstract class BasicEntity : Persistable<UUID> {
     @Id
-    @Column(name = "id", columnDefinition = "BINARY(16)")
+    @Column(name = "id")
     private val id: UUID = UlidCreator.getMonotonicUlid().toUuid()
 
     @CreatedDate
