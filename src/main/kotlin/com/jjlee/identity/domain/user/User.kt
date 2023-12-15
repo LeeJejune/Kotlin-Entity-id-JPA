@@ -15,7 +15,7 @@ class User(
     name: String
 ) : BasicEntity() {
 
-    @Column(nullable = false, unique = true)
+    @Column(nullable = false)
     var name: String = name
         protected set
 
