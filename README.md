@@ -146,6 +146,7 @@ abstract class BasicEntity : Persistable<UUID> {
 2. 영속화 한 후, isNew를 false로 변경한다. @PostPersist와 @PostLoad를 통해 각각 영속화 이후와 영속화한 데이터를 조회한 이후에 함수가 실행되도록 할 수 있다.
 3. 상태 관리를 위한 IsNew는 @Transient를 통해 영속화 되지 않도록 한다.
 4. 공통 동일성 보장을 위해 equals와 hashCode를 구현한다. 이는 HibernateProxy를 통해 Lazy Loading을 할 때, 동일성을 보장하기 위함이다.
+5. 또한, DB의 VARCAHR으로 저장될 수 있도록 @JdbcTypeCode를 통해 설정한다.
 
 **위 과정들을 Test를 통해 확인해보았다.**
 - [EntitySaveTest](https://github.com/LeeJejune/Kotlin-Entity-id-JPA/blob/main/src/test/kotlin/com/jjlee/identity/EntitySaveTest.kt) (1~3번 과정 테스트 코드.)
@@ -166,7 +167,7 @@ abstract class BasicEntity : Persistable<UUID> {
 
 1, 2번의 경우 우리의 기술적 배경이 존재했다. 아래와 같다.
 - 이전에 DB의 데이터를 직접 추가해 오류가 발생했던 히스토리가 존재했다.
-- 우리의 서비스 중 Long을 사용 이시 다음 Id를 유추할 수 있는 부분이 존재했다.
+- 우리의 서비스 중 Long을 사용시 다음 Id를 유추할 수 있는 부분이 존재했다.
 - createdAt을 통한 정렬이 필요한 상황이 많이 존재했다. (이는 ULID를 통해 id 정렬로 해결했다.)
 
 3번의 경우는 k6를 통해 save 테스트를 진행했다. (vus 10000, duration 30s)
