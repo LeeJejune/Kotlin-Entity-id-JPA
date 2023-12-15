@@ -2,7 +2,7 @@ import http from "k6/http";
 import { check } from "k6";
 
 export const options = {
-    vus: 10000, // 가상 사용자 수를 1,0000명으로 변경
+    vus: 10000, // 가상 사용자 수를 10000명으로 변경
     duration: "30s", // 테스트 시간을 30초로 변경
 };
 
